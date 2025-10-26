@@ -453,6 +453,162 @@
             position: relative;
             z-index: 2;
         }
+
+        /* Media Queries pour Mobile */
+        @media screen and (max-width: 768px) {
+            /* Navigation mobile */
+            nav {
+                padding: 15px 20px;
+                flex-wrap: wrap;
+            }
+
+            .logo {
+                font-size: 20px;
+            }
+
+            nav ul {
+                gap: 15px;
+                font-size: 14px;
+            }
+
+            /* Hero Section mobile */
+            .hero h1 {
+                font-size: 36px;
+                padding: 0 20px;
+            }
+
+            .hero p {
+                font-size: 16px;
+                padding: 0 20px;
+            }
+
+            .typing-text {
+                white-space: normal;
+                border-right: none;
+                animation: fadeInUp 1s forwards 0.5s;
+            }
+
+            .cta-button {
+                padding: 12px 30px;
+                font-size: 16px;
+            }
+
+            /* Social links mobile */
+            .social-links {
+                gap: 15px;
+                flex-wrap: wrap;
+                margin-top: 20px;
+            }
+
+            .social-link {
+                width: 50px;
+                height: 50px;
+            }
+
+            .social-img {
+                width: 25px;
+                height: 25px;
+            }
+
+            /* Sections mobile */
+            section {
+                padding: 60px 20px;
+            }
+
+            h2 {
+                font-size: 32px;
+                margin-bottom: 30px;
+            }
+
+            /* Projects grid mobile */
+            .projects-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .project-card.expanded {
+                max-width: 95%;
+                max-height: 90vh;
+                width: 95%;
+            }
+
+            .project-image {
+                height: 180px;
+            }
+
+            .project-content {
+                padding: 15px;
+            }
+
+            .project-content h3 {
+                font-size: 20px;
+            }
+
+            .project-full-desc h4 {
+                font-size: 16px;
+                margin-top: 15px;
+            }
+
+            .project-full-desc p,
+            .project-full-desc li {
+                font-size: 14px;
+            }
+
+            /* Skills mobile */
+            .skill-name {
+                flex-direction: column;
+                gap: 5px;
+                align-items: flex-start;
+            }
+
+            .skill-name span {
+                font-size: 14px;
+            }
+
+            /* Footer mobile */
+            footer {
+                padding: 20px;
+                font-size: 14px;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            /* Très petits écrans */
+            .hero h1 {
+                font-size: 28px;
+            }
+
+            .hero p {
+                font-size: 14px;
+            }
+
+            nav ul {
+                gap: 10px;
+                font-size: 12px;
+            }
+
+            .social-links {
+                gap: 10px;
+            }
+
+            .social-link {
+                width: 45px;
+                height: 45px;
+            }
+
+            .social-img {
+                width: 22px;
+                height: 22px;
+            }
+
+            h2 {
+                font-size: 26px;
+            }
+
+            section {
+                padding: 50px 15px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -488,7 +644,7 @@
                 <a href="https://github.com/Estebanlooo" class="social-link"><img src="img/logo/github.png" alt="github" class="social-img"></a>
                 <a href="https://soundcloud.com/user-969981820" class="social-link"><img src="img/logo/sound.png" alt="soundcloud" class="social-img"></a>
                 <a href="https://www.instagram.com/esteban.thevenin/" class="social-link"><img src="img/logo/instagram.png" alt="instagram" class="social-img"></a>
-                <a href="https://www.root-me.org/Esteban-910301?lang=fr#4843442b0968810f92edded40c51ed4d" class="social-link"><img src="img/logo/rootme.png" alt="root-me" class="social-img"></a>
+                <a href="https://www.root-me.org/Esteban-910301?lang=fr#4843442b0968810f92edded40c51ed4d" class="social-link"><img src="img/logo/root.png" alt="root-me" class="social-img"></a>
             </div>
         </div>
         <br><br>
