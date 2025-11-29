@@ -3,8 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio - THEVENIN Esteban</title>
+    <title>Portfolio - Étudiant Ingénieur UTT</title>
     <style>
+        /* --- RESET ET BASE --- */
+        :root {
+            --primary-color: #0056b3; /* Bleu UTT */
+            --secondary-color: #2c3e50;
+            --accent-color: #f1c40f;
+            --bg-light: #f8f9fa;
+            --text-dark: #333;
+            --white: #ffffff;
+            --shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -12,943 +23,349 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #0a0a0a;
-            color: #e0e0e0;
-            overflow-x: hidden;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background-color: var(--bg-light);
         }
 
-        /* Curseur personnalisé - désactivé */
-        #cursor {
-            display: none;
-        }
-
-        #cursor-trail {
-            display: none;
-        }
-
-        /* Particules en arrière-plan - réduites */
-        #particles {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
-            pointer-events: none;
-            opacity: 0.3;
-        }
-
-        .particle {
-            position: absolute;
-            background: rgba(255, 255, 255, 0.15);
-            border-radius: 50%;
-            animation: float 20s infinite ease-in-out;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0) translateX(0); }
-            25% { transform: translateY(-100px) translateX(50px); }
-            50% { transform: translateY(-50px) translateX(-50px); }
-            75% { transform: translateY(-150px) translateX(30px); }
-        }
-
-        /* Navigation */
-        nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            padding: 20px 50px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 1000;
-            background: rgba(10, 10, 10, 0.8);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .logo {
-            font-size: 24px;
-            font-weight: bold;
-            color: #ffffff;
-        }
-
-        nav ul {
-            display: flex;
-            list-style: none;
-            gap: 30px;
-        }
-
-        nav a {
-            color: #e0e0e0;
-            text-decoration: none;
-            transition: all 0.3s;
-            position: relative;
-        }
-
-        nav a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: #ffffff;
-            transition: width 0.3s;
-        }
-
-        nav a:hover::after {
-            width: 100%;
-        }
-
-        /* Hero Section */
-        .hero {
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            z-index: 2;
-        }
-
-        .hero-content {
-            text-align: center;
-            opacity: 0;
-            animation: fadeInUp 1s forwards 0.5s;
-        }
-
-        .social-img {
-            width: 30px;
-            height: 30px;
-            object-fit: contain;
-        }
-
-        @keyframes fadeInUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-        }
-
-        .hero h1 {
-            font-size: 72px;
-            margin-bottom: 20px;
-            color: #ffffff;
-        }
-
-        .hero p {
-            font-size: 24px;
-            color: #888;
-            margin-bottom: 40px;
-            min-height: 36px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .typing-text {
-            overflow: hidden;
-            border-right: 2px solid rgba(255, 255, 255, 0.6);
-            white-space: nowrap;
-            animation: typing 3s steps(40) 1s forwards, blink 0.75s step-end infinite;
-            display: inline-block;
-        }
-
-        @keyframes typing {
-            from { width: 0; }
-            to { width: 100%; }
-        }
-
-        @keyframes blink {
-            50% { border-color: transparent; }
-        }
-
-        .cta-button {
-            padding: 15px 40px;
-            background: #ffffff;
-            border: none;
-            color: #0a0a0a;
-            font-size: 18px;
-            font-weight: 600;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: all 0.3s;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .cta-button::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            border-radius: 5px;
-            background: rgba(0, 0, 0, 0.1);
-            transform: translate(-50%, -50%);
-            transition: width 0.6s, height 0.6s;
-        }
-
-        .cta-button:hover::before {
-            width: 300px;
-            height: 300px;
-        }
-
-        /* Sections */
-        section {
-            padding: 100px 50px;
-            position: relative;
-            z-index: 2;
+        /* --- TYPOGRAPHIE --- */
+        h1, h2, h3 {
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
         }
 
         h2 {
-            font-size: 48px;
-            margin-bottom: 50px;
-            text-align: center;
-            color: #ffffff;
+            font-size: 2rem;
+            border-bottom: 3px solid var(--primary-color);
+            display: inline-block;
+            margin-bottom: 2rem;
+            padding-bottom: 0.5rem;
         }
 
-        /* Projets */
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            max-width: 1200px;
-            margin: 0 auto;
+        .highlight {
+            color: var(--primary-color);
+            font-weight: bold;
         }
 
-        .project-card {
-            background: rgba(20, 20, 20, 0.8);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            overflow: hidden;
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            cursor: pointer;
-            position: relative;
-        }
-
-        .project-card:hover {
-            transform: translateY(-5px);
-            border-color: rgba(255, 255, 255, 0.3);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-        }
-
-        .project-card.expanded {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 1001;
-            max-width: 700px;
-            max-height: 85vh;
-            overflow-y: auto;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
-            background: rgba(20, 20, 20, 0.95);
-        }
-
-        .project-card.expanded:hover {
-            transform: translate(-50%, -50%);
-        }
-
-        .project-card.expanded .project-content {
-            max-height: none;
-            overflow-y: visible;
-        }
-
-        /* Overlay pour fermer - désactivé */
-        .overlay {
-            position: fixed;
+        /* --- NAVIGATION --- */
+        nav {
+            background: var(--white);
+            box-shadow: var(--shadow);
+            position: sticky;
             top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: transparent;
             z-index: 1000;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s;
-        }
-
-        .overlay.active {
-            opacity: 1;
-            pointer-events: auto;
-        }
-
-        .close-btn {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            width: 30px;
-            height: 30px;
-            background: rgba(255, 255, 255, 0.2);
-            border: none;
-            border-radius: 50%;
-            color: white;
-            font-size: 20px;
-            cursor: pointer;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s;
-            z-index: 10;
-        }
-
-        .close-btn:hover {
-            background: rgba(255, 255, 255, 0.4);
-        }
-
-        .project-card.expanded .close-btn {
+            padding: 1rem 2rem;
             display: flex;
-        }
-
-        .project-image {
-            width: 100%;
-            height: 200px;
-            background: linear-gradient(135deg, #1a1a2e, #16213e);
-            display: flex;
+            justify-content: space-between;
             align-items: center;
-            justify-content: center;
-            font-size: 48px;
-            overflow: hidden;
         }
 
-        .project-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+        nav .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
         }
 
-        .project-content {
-            padding: 20px;
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
         }
 
-        .project-content h3 {
-            color: #ffffff;
-            margin-bottom: 10px;
+        nav a {
+            text-decoration: none;
+            color: var(--secondary-color);
+            font-weight: 500;
+            transition: color 0.3s;
         }
 
-        .project-content p {
-            color: #888;
-            line-height: 1.6;
+        nav a:hover {
+            color: var(--primary-color);
         }
 
-        .project-short-desc {
-            display: block;
+        /* --- HEADER / HERO --- */
+        header {
+            background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+            color: var(--white);
+            padding: 4rem 2rem;
+            text-align: center;
         }
 
-        .project-full-desc {
-            display: none;
-            margin-top: 15px;
+        header h1 {
+            color: var(--white);
+            font-size: 2.5rem;
         }
 
-        .project-card.expanded .project-short-desc {
-            display: none;
-        }
-
-        .project-card.expanded .project-full-desc {
-            display: block;
-        }
-
-        .project-full-desc h4 {
-            color: #ffffff;
-            margin-top: 20px;
-            margin-bottom: 10px;
-            font-size: 18px;
-        }
-
-        .project-full-desc ul {
-            margin-left: 20px;
-            margin-top: 10px;
-            color: #888;
-        }
-
-        .project-full-desc li {
-            margin-bottom: 8px;
-            line-height: 1.6;
-        }
-
-        .project-full-desc strong {
-            color: #ffffff;
-        }
-
-        /* Compétences */
-        .skills-container {
+        header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
             max-width: 800px;
             margin: 0 auto;
         }
 
-        .skill {
-            margin-bottom: 30px;
-        }
-
-        .skill-name {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 10px;
-            color: #e0e0e0;
-        }
-
-        .skill-bar {
-            width: 100%;
-            height: 10px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            overflow: hidden;
-        }
-
-        .skill-progress {
-            height: 100%;
-            background: #ffffff;
-            border-radius: 10px;
-            transition: width 1s ease;
-            width: 0;
-        }
-
-        /* Contact */
-        .contact-container {
-            max-width: 600px;
+        /* --- SECTIONS GÉNÉRALES --- */
+        section {
+            padding: 4rem 2rem;
+            max-width: 1200px;
             margin: 0 auto;
-            text-align: center;
         }
 
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            margin-top: 40px;
+        /* --- TIMELINE EXPERIENCE (FORMATION & PRO) --- */
+        .timeline-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
         }
 
-        .social-link {
-            width: 60px;
-            height: 60px;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            border-radius: 50%;
+        @media(min-width: 768px) {
+            .timeline-container {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .category-block {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+        }
+
+        .category-title {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
             display: flex;
             align-items: center;
-            justify-content: center;
-            color: #ffffff;
-            text-decoration: none;
-            transition: all 0.3s;
-            cursor: pointer;
+            gap: 10px;
         }
 
-        .social-link:hover {
-            background: #ffffff;
-            color: #0a0a0a;
-            transform: scale(1.05);
-            border-color: #ffffff;
-        }
-
-        footer {
-            text-align: center;
-            padding: 30px;
-            background: rgba(10, 10, 10, 0.9);
-            color: #666;
+        .timeline-item {
+            border-left: 3px solid var(--primary-color);
+            padding-left: 1.5rem;
+            margin-bottom: 2rem;
             position: relative;
-            z-index: 2;
         }
 
-        /* Media Queries pour Mobile */
-        @media screen and (max-width: 768px) {
-            /* Navigation mobile */
-            nav {
-                padding: 15px 20px;
-                flex-wrap: wrap;
-            }
-
-            .logo {
-                font-size: 20px;
-            }
-
-            nav ul {
-                gap: 15px;
-                font-size: 14px;
-            }
-
-            /* Hero Section mobile */
-            .hero h1 {
-                font-size: 36px;
-                padding: 0 20px;
-            }
-
-            .hero p {
-                font-size: 16px;
-                padding: 0 20px;
-            }
-
-            .typing-text {
-                white-space: normal;
-                border-right: none;
-                animation: fadeInUp 1s forwards 0.5s;
-            }
-
-            .cta-button {
-                padding: 12px 30px;
-                font-size: 16px;
-            }
-
-            /* Social links mobile */
-            .social-links {
-                gap: 15px;
-                flex-wrap: wrap;
-                margin-top: 20px;
-            }
-
-            .social-link {
-                width: 50px;
-                height: 50px;
-            }
-
-            .social-img {
-                width: 25px;
-                height: 25px;
-            }
-
-            /* Sections mobile */
-            section {
-                padding: 60px 20px;
-            }
-
-            h2 {
-                font-size: 32px;
-                margin-bottom: 30px;
-            }
-
-            /* Projects grid mobile */
-            .projects-grid {
-                grid-template-columns: 1fr;
-                gap: 20px;
-            }
-
-            .project-card.expanded {
-                max-width: 95%;
-                max-height: 90vh;
-                width: 95%;
-            }
-
-            .project-image {
-                height: 180px;
-            }
-
-            .project-content {
-                padding: 15px;
-            }
-
-            .project-content h3 {
-                font-size: 20px;
-            }
-
-            .project-full-desc h4 {
-                font-size: 16px;
-                margin-top: 15px;
-            }
-
-            .project-full-desc p,
-            .project-full-desc li {
-                font-size: 14px;
-            }
-
-            /* Skills mobile */
-            .skill-name {
-                flex-direction: column;
-                gap: 5px;
-                align-items: flex-start;
-            }
-
-            .skill-name span {
-                font-size: 14px;
-            }
-
-            /* Footer mobile */
-            footer {
-                padding: 20px;
-                font-size: 14px;
-            }
+        .timeline-item::before {
+            content: '';
+            width: 12px;
+            height: 12px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            position: absolute;
+            left: -7.5px;
+            top: 5px;
         }
 
-        @media screen and (max-width: 480px) {
-            /* Très petits écrans */
-            .hero h1 {
-                font-size: 28px;
-            }
+        .date {
+            font-size: 0.9rem;
+            color: #777;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            display: block;
+            text-transform: uppercase;
+        }
 
-            .hero p {
-                font-size: 14px;
-            }
+        .job-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 0.2rem;
+        }
 
-            nav ul {
-                gap: 10px;
-                font-size: 12px;
-            }
+        .location {
+            font-style: italic;
+            color: #555;
+            margin-bottom: 0.5rem;
+        }
 
-            .social-links {
-                gap: 10px;
-            }
+        /* --- COMPÉTENCES INGÉNIEUR UTT --- */
+        .utt-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
 
-            .social-link {
-                width: 45px;
-                height: 45px;
-            }
+        .utt-card {
+            background: var(--white);
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s, box-shadow 0.3s;
+            border-top: 4px solid var(--primary-color);
+        }
 
-            .social-img {
-                width: 22px;
-                height: 22px;
-            }
+        .utt-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.15);
+        }
 
-            h2 {
-                font-size: 26px;
-            }
+        .utt-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
 
-            section {
-                padding: 50px 15px;
-            }
+        .tag-container {
+            margin-top: 1rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .tag {
+            background: #eef2f7;
+            color: var(--primary-color);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background: var(--secondary-color);
+            color: var(--white);
+            text-align: center;
+            padding: 2rem;
+            margin-top: 4rem;
         }
     </style>
 </head>
 <body>
-<!-- Curseur personnalisé -->
-<div id="cursor"></div>
-<div id="cursor-trail"></div>
 
-<!-- Particules -->
-<div id="particles"></div>
+    <nav>
+        <div class="logo">Mon Portfolio</div>
+        <ul>
+            <li><a href="#accueil">Accueil</a></li>
+            <li><a href="#experience">Expériences</a></li>
+            <li><a href="#utt">Ingénieur UTT</a></li>
+        </ul>
+    </nav>
 
-<!-- Overlay pour fermer les projets -->
-<div class="overlay" id="overlay"></div>
+    <header id="accueil">
+        <h1>Étudiant Ingénieur UTT</h1>
+        <p>Réseaux, Télécommunications & Cybersécurité</p>
+        <br>
+        <p style="font-size: 1rem;">Passionné par l'architecture réseau et la sécurité informatique. Actuellement en formation à l'Université de Technologie de Troyes après une expérience internationale au Québec.</p>
+    </header>
 
-<!-- Navigation -->
-<nav>
-    <div class="logo">Portfolio</div>
-    <ul>
-        <li><a href="#accueil">Accueil</a></li>
-        <li><a href="#projets">Projets</a></li>
-        <li><a href="#competences">Compétences</a></li>
-    </ul>
-</nav>
+    <section id="experience">
+        <h2>Parcours & Expériences</h2>
+        
+        <div class="timeline-container">
+            
+            <div class="category-block">
+                <h3 class="category-title">🎓 Formation</h3>
+                
+                <div class="timeline-item">
+                    <span class="date">Depuis Septembre 2023</span>
+                    <div class="job-title">Étudiant ingénieur - Réseaux et Télécommunications</div>
+                    <div class="location">Université de Technologie de Troyes (UTT)</div>
+                    <p>Après un cycle préparatoire de 2 ans, spécialisation en RT. Intérêt marqué pour l'architecture réseau et la cybersécurité. Approche pédagogique innovante liée à l'industrie.</p>
+                </div>
 
-<!-- Hero Section -->
-<section class="hero" id="accueil">
-    <div class="hero-content">
-        <h1>THEVENIN Esteban</h1>
-        <p class="typing-text">Étudiant ingénieur en réseaux et télécommunication</p>
-        <div class="contact-container">
-            <div class="social-links">
-                <a href="mailto:estebanthevenin@gmail.com" class="social-link"><img src="img/logo/mail.png" alt="mail" class="social-img"></a>
-                <a href="https://www.linkedin.com/in/esteban-thevenin-3b6a892a2/" class="social-link"><img src="img/logo/linkedin.png" alt="linkedin" class="social-img"></a>
-                <a href="https://github.com/Estebanlooo" class="social-link"><img src="img/logo/github.png" alt="github" class="social-img"></a>
-                <a href="https://soundcloud.com/user-969981820" class="social-link"><img src="img/logo/sound.png" alt="soundcloud" class="social-img"></a>
-                <a href="https://www.instagram.com/esteban.thevenin/" class="social-link"><img src="img/logo/instagram.png" alt="instagram" class="social-img"></a>
-                <a href="https://www.root-me.org/Esteban-910301?lang=fr#4843442b0968810f92edded40c51ed4d" class="social-link"><img src="img/logo/root.png" alt="root-me" class="social-img"></a>
-            </div>
-        </div>
-        <br><br>
-        <button class="cta-button">Voir mes projets</button>
-    </div>
-</section>
+                <div class="timeline-item">
+                    <span class="date">Janvier - Juin 2025</span>
+                    <div class="job-title">Technique de Génie Mécanique (Semestre d'étude)</div>
+                    <div class="location">Cégep de Sherbrooke, Québec</div>
+                    <p>Immersion internationale de 6 mois. Approfondissement technique en génie mécanique et développement de l'adaptabilité interculturelle.</p>
+                </div>
 
-<!-- Projets -->
-<section id="projets">
-    <h2>Mes Projets</h2>
-    <div class="projects-grid">
-        <div class="project-card">
-            <button class="close-btn">×</button>
-            <div class="project-image"><img src="img/pocket-iperium-500x500.jpg.webp" alt=""></div>
-            <div class="project-content">
-                <h3>Projet Jeux Vidéo</h3>
-                <p class="project-short-desc">Développement d'un jeu vidéo avec moteur de jeu moderne.</p>
-
-                <div class="project-full-desc">
-                    <p>Dans le cadre d’un projet de programmation en JavaScript, j’ai développé une adaptation numérique du jeu de société Pocket Imperium, un jeu de stratégie spatiale basé sur la conquête, l’exploration et la gestion de territoires. L’objectif du projet était de reproduire les mécaniques du jeu original dans une interface web interactive, tout en respectant les règles complexes du jeu (phases d’ordre, interactions entre joueurs, et conditions de victoire).Le jeu repose sur trois actions principales — Expansion, Exploitation, et Extermination — que les joueurs effectuent de manière stratégique pour étendre leur empire galactique.</p>
-
-                    <h4>🎯 Objectifs du projet</h4>
-                    <ul>
-                        <li>Mettre en pratique les notions avancées de programmation orientée objet (POO) en JavaScript.</li>
-                        <li>Gérer la logique de tour par tour et les interactions entre entités (planètes, flottes, joueurs).</li>
-                        <li>Créer une interface claire et réactive, fidèle à l’esprit minimaliste du jeu original.</li>
-                        <li>Appliquer des concepts de modélisation UML pour structurer le code avant le développement.</li>
-                    </ul>
-
-                    <h4>🛠️ Technologies utilisées</h4>
-                    <ul>
-                        <li><strong>Langages :</strong> JavaScript (ES6)</li>
-                        <li><strong>Outils de conception :</strong> Lucidchart / Modelio (modélisation UML du système de jeu)</li>
-                        <li><strong>Environnement de développement :</strong> Visual Studio Code</li>
-                    </ul>
-
-                    <h4>✨ Fonctionnalités principales</h4>
-                    <ul>
-                        <li>Système complet de tour par tour avec gestion automatique de la phase d’ordre.</li>
-                        <li>Représentation des flottes et territoires sur un plateau interactif.</li>
-                        <li>Calcul des points de victoire en fonction des planètes conquises et des ressources.</li>
-                        <li>Gestion dynamique des conflits entre joueurs (mouvements, conquêtes, priorités d’action).</li>
-                        <li>Interface permettant de suivre les états de jeu en temps réel.</li>
-                    </ul>
-
-                    <h4>📊 Résultats</h4>
-                    <p>Le projet a permis de reproduire fidèlement les mécanismes du jeu de société tout en offrant une interface simple et fluide. J’ai pu approfondir ma compréhension de la logique objet et de la gestion d’état en JavaScript, ainsi que la traduction d’un système de règles complexes en code structuré. Ce travail m’a aussi permis de renforcer mes compétences en conception logicielle et en collaboration technique, en lien avec le développement d’un jeu multi-entités.</p>
+                <div class="timeline-item">
+                    <span class="date">2023</span>
+                    <div class="job-title">Baccalauréat Général (Mention Très Bien)</div>
+                    <div class="location">Lycée Polyvalent les Lombards</div>
+                    <p>Spécialités Mathématiques et Numérique et Sciences de l'Informatique (NSI).</p>
                 </div>
             </div>
-        </div>
-        <div class="project-card">
-            <button class="close-btn">×</button>
-            <div class="project-image"><img src="img/root-me-678x381.jpg" alt="root-me"></div>
-            <div class="project-content">
-                <h3>Sécurité & Réseaux</h3>
-                <p class="project-short-desc">Sécurité & Réseaux – Découverte via Root-Me</p>
 
-                <div class="project-full-desc">
-                    <p>Dans le cadre de mon apprentissage personnel en cybersécurité et réseaux, j’ai entrepris un parcours de formation pratique sur la plateforme Root-Me, un environnement en ligne dédié à la sécurité informatique et à l’analyse de vulnérabilités. Ce projet m’a permis de développer une compréhension concrète du fonctionnement des protocoles réseau, de la cryptographie et des techniques d’exploitation, à travers la résolution de nombreux défis techniques. L’objectif était d’explorer le monde de la cybersécurité en appliquant directement les concepts appris à des situations réelles simulées.</p>
+            <div class="category-block">
+                <h3 class="category-title">💼 Expérience Professionnelle</h3>
 
-                    <h4>🎯 Objectifs du projet</h4>
-                    <ul>
-                        <li>Renforcer mes connaissances en réseaux informatiques (TCP/IP, DNS, HTTP, etc.).</li>
-                        <li>Découvrir les principes fondamentaux de la cybersécurité : confidentialité, intégrité, disponibilité.</li>
-                        <li>Apprendre à identifier et exploiter des failles de sécurité dans des environnements contrôlés.</li>
-                    </ul>
+                <div class="timeline-item">
+                    <span class="date">Juillet 2024 - Aujourd'hui</span>
+                    <div class="job-title">Auto-Entrepreneur (Platinium)</div>
+                    <div class="location">Projet personnel</div>
+                    <p>Développement d'un projet alliant DJing et production musicale (Musique électronique).</p>
+                </div>
 
-                    <h4>🛠️ Technologies utilisées</h4>
-                    <ul>
-                        <li><strong>Systèmes d’exploitation :</strong> Linux (Kali)</li>
-                        <li><strong>Outils réseau :</strong> Wireshark, Nmap, Netcat, TCPdump</li>
-                        <li><strong>Langages :</strong> Python, Bash, HTML</li>
-                        <li><strong>Plateforme :</strong> Root-Me.org</li>
-                    </ul>
+                <div class="timeline-item">
+                    <span class="date">Juillet - Août 2025</span>
+                    <div class="job-title">Vendeur</div>
+                    <div class="location">Adidas, Troyes</div>
+                    <p>Conseil client, gestion des stocks, merchandising et travail en équipe pour atteindre les objectifs de vente.</p>
+                </div>
 
-                    <h4>✨ Fonctionnalités principales</h4>
-                    <ul>
-                        <li>Résolution de défis réseau : analyse de paquets, détection d’anomalies et reconstruction de communications.</li>
-                        <li>Participation à des épreuves de sécurité web : injection SQL, XSS, analyse de cookies et failles d’authentification.</li>
-                        <li>Réalisation de challenges de cryptographie : déchiffrement de messages, encodages multiples, attaques de clés simples.</li>
-                        <li>Initiation à la stéganographie et à l’analyse forensique (extraction de données cachées dans des fichiers).</li>
-                        <li>Veille technique sur les bonnes pratiques de sécurisation des systèmes et applications web.</li>
-                    </ul>
+                <div class="timeline-item">
+                    <span class="date">Juillet 2024</span>
+                    <div class="job-title">Stagiaire ouvrier polyvalent (ST05)</div>
+                    <div class="location">Portec Industry, Piney</div>
+                    <p>Stage ouvrier de 1 mois en milieu industriel.</p>
+                </div>
 
-                    <h4>📊 Résultats</h4>
-                    <p>Ce projet m’a permis de consolider mes bases en sécurité et en réseaux tout en développant une approche analytique et méthodique face aux problèmes techniques. Grâce à Root-Me, j’ai pu pratiquer la résolution de failles concrètes et mieux comprendre comment les prévenir dans un cadre professionnel. Cette expérience constitue une première étape vers la cybersécurité appliquée, un domaine que je souhaite approfondir au cours de mon parcours d’ingénieur.</p>
+                <div class="timeline-item">
+                    <span class="date">Janvier - Février 2022</span>
+                    <div class="job-title">Agent de Bureau</div>
+                    <div class="location">CAMSP de l'Aube, Troyes</div>
+                    <p>CDD de 1 mois en gestion administrative.</p>
+                </div>
+
+                <h3 class="category-title" style="margin-top: 3rem;">🤝 Expérience Associative</h3>
+                <div class="timeline-item">
+                    <span class="date">Septembre 2025 - Aujourd'hui</span>
+                    <div class="job-title">Responsable Événementiel</div>
+                    <div class="location">BDE UTT</div>
+                    <p>Organisation et gestion des événements de la vie étudiante.</p>
                 </div>
             </div>
+
         </div>
-        <div class="project-card">
-            <button class="close-btn">×</button>
-            <div class="project-image"><img src="img/Illustration_Compression.png" alt=""></div>
-            <div class="project-content">
-                <h3>DJ</h3>
-                <p class="project-short-desc">Auto-entrepreneur dans le domaine musical.</p>
+    </section>
 
-                <div class="project-full-desc">
-                    <p>Passionné par la musique électronique, j’ai développé un projet personnel alliant DJing et production musicale. Mon objectif est de créer une identité sonore originale, en fusionnant différents styles tels que la techno, l’electro house, le UK Garage et la jungle, tout en proposant des performances énergiques et immersives. Je mixe au sein d’un collectif de DJs et j’explore également la production de mes propres morceaux via Ableton Live, en cherchant à produire des sons puissants et texturés, inspirés notamment par des artistes comme Daft Punk et Salute.</p>
-
-                    <h4>🎯 Activités principales</h4>
-                    <ul>
-                        <li>Développer une direction artistique cohérente et un style identifiable.</li>
-                        <li>Créer et mixer des morceaux originaux en live et en DJ set.</li>
-                        <li>Approfondir la production sonore (sound design, création de kicks, mastering).</li>
-                        <li>Construire une présence numérique professionnelle à travers des plateformes comme SoundCloud et Instagram.</li>
-                    </ul>
-
-                    <h4>🛠️ Matériel et compétences</h4>
-                    <ul>
-                        <li><strong>Logiciel de production :</strong> Ableton Live, Rekordbox</li>
-                        <li><strong>Plugins & VST :</strong> Serum, Kick 2, FabFilter Suite, OTT</li>
-                        <li><strong>Plateformes :</strong> SoundCloud, Instagram, Root-Me (profil technique), LinkedIn</li>
-                    </ul>
-
-                    <h4>✨ Services proposés</h4>
-                    <ul>
-                        <li>Création de morceaux originaux mixant plusieurs styles de musique électronique.</li>
-                        <li>Réalisation de sets DJ en live avec transitions fluides et sélections travaillées.</li>
-                        <li>Expérimentation sur le design sonore (création de kicks, synthés, effets).</li>
-                        <li>Développement d’une image artistique cohérente sur les réseaux sociaux.</li>
-                        <li>Création et participation à un collectif de DJs pour partager, collaborer et se produire en public.</li>
-                    </ul>
-
-                    <h4>📊 Expérience</h4>
-                    <p>Ce projet m’a permis d’allier créativité et technique, en développant à la fois mes compétences musicales et mes connaissances en traitement du son et gestion du matériel audio. Il constitue une vitrine de mon univers artistique, mais aussi une preuve de ma polyvalence entre le monde technique (programmation, ingénierie) et artistique (production et performance). Mon objectif à long terme est de faire évoluer ce projet vers des prestations professionnelles dans des clubs et festivals.</p>
+    <section id="utt" style="background-color: #fff; width: 100%; max-width: 100%; padding: 4rem 10%;">
+        <div style="max-width: 1200px; margin: 0 auto;">
+            <h2>Compétences Ingénieur UTT</h2>
+            <p style="margin-bottom: 2rem;">Compétences communes à toutes les formations d’ingénieur UTT validées au cours du cursus.</p>
+            
+            <div class="utt-grid">
+                
+                <div class="utt-card">
+                    <h3>Gestion de Projet</h3>
+                    <p>Définition de la stratégie et garantie de l’atteinte des objectifs d’un projet novateur dans un cadre industriel ou entrepreneurial.</p>
+                    <div class="tag-container">
+                        <span class="tag">UE NF06 (C/Python)</span>
+                        <span class="tag">UE MM01 (Web)</span>
+                        <span class="tag">UE LO14 (Bash)</span>
+                    </div>
                 </div>
+
+                <div class="utt-card">
+                    <h3>Qualité & Amélioration</h3>
+                    <p>Garantir un processus de qualité, évaluer les performances et les impacts du système et proposer des marges d'amélioration.</p>
+                </div>
+
+                <div class="utt-card">
+                    <h3>Conception Innovante</h3>
+                    <p>Concevoir des modèles et des technologies originales sur la base d'une démarche scientifique animée par une curiosité intellectuelle.</p>
+                </div>
+
+                <div class="utt-card">
+                    <h3>Entrepreneuriat & Valorisation</h3>
+                    <p>Entreprendre et créer de la valeur à partir d'une opportunité pour répondre aux besoins de la société ou d'un marché.</p>
+                </div>
+
+                <div class="utt-card">
+                    <h3>Analyse & Décision</h3>
+                    <p>Exploiter des données pour nourrir la prise de décision en s'appuyant sur des environnements et des pratiques numériques.</p>
+                </div>
+
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<!-- Compétences -->
-<section id="competences">
-    <h2>Compétences</h2>
-    <div class="skills-container">
-        <div class="skill">
-            <div class="skill-name">
-                <span>Réseaux & Protocoles (TCP/IP, VLAN, Routage)</span>
-                <span class="skill-percent">85%</span>
-            </div>
-            <div class="skill-bar">
-                <div class="skill-progress" data-width="85"></div>
-            </div>
-        </div>
-        <div class="skill">
-            <div class="skill-name">
-                <span>Systèmes d'exploitation (Linux, Windows Server)</span>
-                <span class="skill-percent">80%</span>
-            </div>
-            <div class="skill-bar">
-                <div class="skill-progress" data-width="80"></div>
-            </div>
-        </div>
-        <div class="skill">
-            <div class="skill-name">
-                <span>Programmation (Python, C, Java)</span>
-                <span class="skill-percent">75%</span>
-            </div>
-            <div class="skill-bar">
-                <div class="skill-progress" data-width="75"></div>
-            </div>
-        </div>
-        <div class="skill">
-            <div class="skill-name">
-                <span>Sécurité & Cybersécurité</span>
-                <span class="skill-percent">70%</span>
-            </div>
-            <div class="skill-bar">
-                <div class="skill-progress" data-width="70"></div>
-            </div>
-        </div>
-        <div class="skill">
-            <div class="skill-name">
-                <span>Base de données (SQL, PostgreSQL)</span>
-                <span class="skill-percent">75%</span>
-            </div>
-            <div class="skill-bar">
-                <div class="skill-progress" data-width="75"></div>
-            </div>
-        </div>
-        <div class="skill">
-            <div class="skill-name">
-                <span>Virtualisation (VMware, Docker)</span>
-                <span class="skill-percent">70%</span>
-            </div>
-            <div class="skill-bar">
-                <div class="skill-progress" data-width="70"></div>
-            </div>
-        </div>
-    </div>
-</section>
+    <footer>
+        <p>&copy; 2025 - Portfolio Étudiant UTT</p>
+    </footer>
 
-<footer>
-    <p>&copy; 2025 THEVENIN Esteban. Tous droits réservés.</p>
-</footer>
-
-<script>
-    // Génération de particules (réduit à 15)
-    const particlesContainer = document.getElementById('particles');
-    for (let i = 0; i < 15; i++) {
-        const particle = document.createElement('div');
-        particle.className = 'particle';
-        particle.style.width = Math.random() * 3 + 1 + 'px';
-        particle.style.height = particle.style.width;
-        particle.style.left = Math.random() * 100 + '%';
-        particle.style.top = Math.random() * 100 + '%';
-        particle.style.animationDelay = Math.random() * 20 + 's';
-        particle.style.animationDuration = Math.random() * 15 + 15 + 's';
-        particlesContainer.appendChild(particle);
-    }
-
-    // Animation des barres de compétences
-    const observerOptions = {
-        threshold: 0.5
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const skillBars = entry.target.querySelectorAll('.skill-progress');
-                skillBars.forEach(bar => {
-                    bar.style.width = bar.dataset.width + '%';
-                });
-            }
-        });
-    }, observerOptions);
-
-    observer.observe(document.querySelector('.skills-container'));
-
-    // Smooth scroll
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                target.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-            }
-        });
-    });
-
-    // Bouton CTA
-    document.querySelector('.cta-button').addEventListener('click', () => {
-        document.querySelector('#projets').scrollIntoView({
-            behavior: 'smooth'
-        });
-    });
-
-    // Système d'expansion des cartes de projet
-    const projectCards = document.querySelectorAll('.project-card');
-    const overlay = document.getElementById('overlay');
-
-    projectCards.forEach(card => {
-        // Clic sur la carte pour l'agrandir
-        card.addEventListener('click', (e) => {
-            // Ne pas agrandir si on clique sur le bouton de fermeture
-            if (e.target.classList.contains('close-btn')) {
-                return;
-            }
-
-            // Fermer toutes les autres cartes
-            projectCards.forEach(c => c.classList.remove('expanded'));
-
-            // Agrandir la carte cliquée
-            card.classList.add('expanded');
-            overlay.classList.add('active');
-
-            // Bloquer le scroll du body
-            document.body.style.overflow = 'hidden';
-        });
-
-        // Bouton de fermeture
-        const closeBtn = card.querySelector('.close-btn');
-        closeBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            card.classList.remove('expanded');
-            overlay.classList.remove('active');
-
-            // Réactiver le scroll du body
-            document.body.style.overflow = 'auto';
-        });
-    });
-
-    // Fermer en cliquant sur l'overlay
-    overlay.addEventListener('click', () => {
-        projectCards.forEach(card => card.classList.remove('expanded'));
-        overlay.classList.remove('active');
-
-        // Réactiver le scroll du body
-        document.body.style.overflow = 'auto';
-    });
-
-    // Fermer avec la touche Échap
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') {
-            projectCards.forEach(card => card.classList.remove('expanded'));
-            overlay.classList.remove('active');
-
-            // Réactiver le scroll du body
-            document.body.style.overflow = 'auto';
-        }
-    });
-</script>
 </body>
 </html>
