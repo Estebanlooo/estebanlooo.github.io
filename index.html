@@ -21,7 +21,7 @@
         }
 
         /* --- BACKGROUND EFFECTS --- */
-        #cursor, #cursor-trail { display: none; } /* Désactivés pour perf */
+        #cursor, #cursor-trail { display: none; } 
 
         #particles {
             position: fixed;
@@ -158,12 +158,12 @@
             margin: 15px auto 0;
         }
 
-        /* --- SOCIAL LINKS (RESTAURÉ) --- */
+        /* --- SOCIAL LINKS --- */
         .social-links { 
             display: flex; 
             justify-content: center; 
             gap: 20px; 
-            margin-top: 40px; /* Espace ajusté */
+            margin-top: 40px;
             flex-wrap: wrap;
         }
         .social-link {
@@ -191,7 +191,7 @@
             width: 30px; 
             height: 30px; 
             object-fit: contain;
-            filter: invert(1); /* Pour les logos sombres sur fond clair si besoin, ou retirer si les images sont déjà claires */
+            filter: invert(1);
         }
         
         /* --- SECTION PARCOURS (TIMELINE) --- */
@@ -346,17 +346,29 @@
             z-index: 1001;
             max-width: 800px;
             width: 90%;
-            max-height: 85vh;
-            overflow-y: auto;
-            background: #111;
+            max-height: 85vh; 
+            overflow-y: auto; /* Permet le défilement de la carte si le contenu dépasse max-height */
+            background: #1a1a1a; /* FIX: Lighter background for better contrast */
             box-shadow: 0 0 50px rgba(0,0,0,0.9);
             border: 1px solid #333;
         }
         .project-card.expanded:hover { transform: translate(-50%, -50%); }
-        
-        .project-full-desc { display: none; margin-top: 20px; color: #bbb; }
+
+        .project-full-desc { display: none; margin-top: 20px; }
         .project-card.expanded .project-short-desc { display: none; }
-        .project-card.expanded .project-full-desc { display: block; }
+        .project-card.expanded .project-full-desc { 
+            display: block; 
+            color: #ffffff; /* FIX: Utilise le blanc pour une meilleure lisibilité */
+        }
+        .project-card.expanded .project-full-desc ul { 
+            margin-left: 20px; 
+            color: #cccccc; /* Listes un peu plus grisées */
+        }
+        .project-card.expanded .project-full-desc h4 {
+            color: #ffffff;
+            margin-top: 20px; 
+            margin-bottom: 10px; 
+        }
 
         .close-btn {
             position: absolute; top: 15px; right: 15px;
@@ -698,21 +710,31 @@
 
     cards.forEach(card => {
         card.addEventListener('click', (e) => {
-            if(e.target.classList.contains('close-btn')) return;
+            // Empêche de fermer si on clique sur le bouton de fermeture
+            if(e.target.classList.contains('close-btn') || e.target.parentElement.classList.contains('close-btn')) return;
+
+            // Ferme toutes les autres cartes
             cards.forEach(c => c.classList.remove('expanded'));
+            
+            // Ouvre la carte actuelle
             card.classList.add('expanded');
             overlay.classList.add('active');
-            document.body.style.overflow = 'hidden';
+            document.body.style.overflow = 'hidden'; // Verrouille le défilement de la page
         });
         
-        card.querySelector('.close-btn').addEventListener('click', (e) => {
-            e.stopPropagation();
-            card.classList.remove('expanded');
-            overlay.classList.remove('active');
-            document.body.style.overflow = 'auto';
-        });
+        // Gestion du bouton de fermeture
+        const closeBtn = card.querySelector('.close-btn');
+        if (closeBtn) {
+            closeBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                card.classList.remove('expanded');
+                overlay.classList.remove('active');
+                document.body.style.overflow = 'auto'; // Restaure le défilement de la page
+            });
+        }
     });
 
+    // Fermeture en cliquant sur l'overlay
     overlay.addEventListener('click', () => {
         cards.forEach(c => c.classList.remove('expanded'));
         overlay.classList.remove('active');
