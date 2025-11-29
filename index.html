@@ -63,9 +63,13 @@
 
         .logo { font-size: 24px; font-weight: bold; color: #ffffff; }
 
-        nav ul { display: flex; list-style: none; gap: 30px; }
-        nav a { color: #e0e0e0; text-decoration: none; transition: 0.3s; position: relative; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; }
-        nav a::after {
+        .nav-links { 
+            display: flex; 
+            list-style: none; 
+            gap: 30px; 
+        }
+        .nav-links a { color: #e0e0e0; text-decoration: none; transition: 0.3s; position: relative; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; }
+        .nav-links a::after {
             content: '';
             position: absolute;
             bottom: -5px;
@@ -76,9 +80,43 @@
             transition: width 0.3s;
         }
 
-        nav a:hover::after {
+        .nav-links a:hover::after {
             width: 100%;
         }
+
+        /* --- MENU HAMBURGER (Ajout) --- */
+        .burger {
+            display: none; /* Caché par défaut */
+            cursor: pointer;
+        }
+        .burger div {
+            width: 25px;
+            height: 3px;
+            background-color: #ffffff;
+            margin: 5px;
+            transition: all 0.3s ease;
+        }
+        /* Animation du hamburger en croix */
+        .toggle .line1 {
+            transform: rotate(-45deg) translate(-5px, 6px);
+        }
+        .toggle .line2 {
+            opacity: 0;
+        }
+        .toggle .line3 {
+            transform: rotate(45deg) translate(-5px, -6px);
+        }
+        @keyframes navLinkFade {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0px);
+            }
+        }
+
 
         /* --- HERO SECTION --- */
         .hero {
@@ -102,15 +140,22 @@
         }
 
         .hero h1 { font-size: 72px; margin-bottom: 20px; color: #ffffff; }
-        .hero p { font-size: 24px; color: #888; margin-bottom: 40px; }
         
-        .typing-text {
+        /* Texte de frappe Desktop */
+        .typing-text-desktop {
+            font-size: 24px;
+            color: #888;
+            margin-bottom: 40px;
             border-right: 2px solid rgba(255, 255, 255, 0.6);
             white-space: nowrap;
             overflow: hidden;
             display: inline-block;
             animation: typing 3s steps(40) 1s forwards, blink 0.75s infinite;
         }
+        .typing-text-mobile {
+            display: none; /* Caché par défaut */
+        }
+        
         @keyframes typing { from { width: 0; } to { width: 100%; } }
         @keyframes blink { 50% { border-color: transparent; } }
 
@@ -232,36 +277,58 @@
         .timeline-loc { font-style: italic; color: #888; font-size: 14px; margin-bottom: 10px; }
         .timeline-desc { color: #aaa; font-size: 15px; line-height: 1.5; }
 
-        /* --- SECTIONS SKILLS (RT & TRANSVERSAL) --- */
-        .skills-grid-layout {
+        /* --- SECTIONS SKILLS (RT & TRANSVERSAL) & PROJETS --- */
+        .skills-grid-layout, .projects-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
             gap: 30px;
         }
 
-        .skill-card {
+        .skill-card, .project-static-card {
             background: rgba(20, 20, 20, 0.6);
             border: 1px solid rgba(255, 255, 255, 0.08);
             padding: 30px;
             border-radius: 12px;
             transition: transform 0.3s, background 0.3s;
+            position: relative; 
+            z-index: 5;
         }
 
-        .skill-card:hover {
+        .skill-card:hover, .project-static-card:hover {
             transform: translateY(-5px);
             background: rgba(30, 30, 30, 0.8);
             border-color: rgba(255, 255, 255, 0.2);
         }
 
-        .skill-card h3 {
+        /* --- STYLE IMAGE PROJET --- */
+        .project-image {
+            height: 150px; 
+            background: #1a1a2e;
+            overflow: hidden;
+            /* Retire le padding et s'étend jusqu'aux bords supérieurs de la carte */
+            margin: -30px -30px 20px -30px; 
+            border-top-left-radius: 11px; 
+            border-top-right-radius: 11px;
+        }
+        .project-image img { 
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover; 
+            display: block;
+        }
+
+        /* Ajustement du titre pour l'image */
+        .project-static-card h3 {
+            margin-top: 10px; 
             color: #fff;
             font-size: 22px;
             margin-bottom: 15px;
             padding-bottom: 15px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
-
-        .skill-main-desc {
+        
+        /* Suites des styles de carte */
+        .skill-main-desc, .project-static-card .project-desc-intro {
             color: #ccc;
             font-style: italic;
             margin-bottom: 25px;
@@ -273,7 +340,7 @@
             margin-bottom: 20px;
         }
 
-        .sub-skill-title {
+        .sub-skill-title, .project-static-card h4 {
             color: #fff;
             font-size: 16px;
             font-weight: 600;
@@ -282,18 +349,19 @@
             align-items: center;
         }
 
-        .sub-skill-title::before {
+        .sub-skill-title::before, .project-static-card h4::before {
             content: '▹';
             margin-right: 8px;
             color: #888;
         }
 
-        .exp-list {
+        .exp-list, .project-static-card ul {
             margin-left: 20px;
             list-style: none;
+            color: #999;
         }
 
-        .exp-list li {
+        .exp-list li, .project-static-card ul li {
             color: #999;
             font-size: 13px;
             margin-bottom: 4px;
@@ -301,114 +369,96 @@
             padding-left: 10px;
         }
 
-        .exp-list li::before {
+        .exp-list li::before, .project-static-card ul li::before {
             content: '-';
             position: absolute;
             left: 0;
             color: #555;
         }
-
-        /* --- SECTION PROJETS --- */
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-
-        .project-card {
-            background: rgba(20, 20, 20, 0.8);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            overflow: hidden;
-            transition: all 0.5s;
-            cursor: pointer;
-            position: relative;
-            z-index: 5; /* Z-index normal pour le flow */
-        }
-
-        .project-card:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0,0,0,0.5); border-color: rgba(255, 255, 255, 0.3); }
-
-        .project-image {
-            height: 200px;
-            background: #1a1a2e;
-            overflow: hidden;
-        }
-        .project-image img { width: 100%; height: 100%; object-fit: cover; }
-
-        .project-content { padding: 20px; }
-        .project-content h3 { color: #fff; margin-bottom: 10px; }
-        .project-content p { color: #888; line-height: 1.6; font-size: 14px; }
-
-        /* Mode étendu des projets */
-        .project-card.expanded {
-            position: fixed;
-            top: 50%; left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 1001; /* TRES IMPORTANT : Doit être au-dessus de l'overlay (1000) */
-            max-width: 800px;
-            width: 90%;
-            max-height: 85vh; 
-            overflow-y: auto; /* Permet le défilement du contenu de la fenêtre */
-            background: #1a1a1a; 
-            box-shadow: 0 0 50px rgba(0,0,0,0.9);
-            border: 1px solid #333;
-        }
-        .project-card.expanded:hover { transform: translate(-50%, -50%); }
-
-        .project-full-desc { display: none; margin-top: 20px; }
-        .project-card.expanded .project-short-desc { display: none; }
-        .project-card.expanded .project-full-desc { 
-            display: block; 
-            color: #ffffff; /* Texte blanc pour meilleure lisibilité */
-            line-height: 1.6;
-        }
-        .project-card.expanded .project-full-desc ul { 
-            margin-left: 20px; 
-            color: #cccccc; 
-        }
-        .project-card.expanded .project-full-desc h4 {
-            color: #ffffff;
-            font-size: 18px; 
-            margin-top: 20px; 
-            margin-bottom: 10px; 
-        }
-
-        .close-btn {
-            position: absolute; top: 15px; right: 15px;
-            background: rgba(255,255,255,0.1); color: #fff;
-            border: none; width: 30px; height: 30px; border-radius: 50%;
-            cursor: pointer; display: none; align-items: center; justify-content: center;
-            z-index: 1002; /* Au-dessus de la carte modale */
-        }
-        .project-card.expanded .close-btn { display: flex; }
-
-        .overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.8); 
-            z-index: 1000; /* TRES IMPORTANT : Assombrissement derrière la carte (1001) */
-            opacity: 0; pointer-events: none; transition: 0.3s;
-        }
-        .overlay.active { opacity: 1; pointer-events: auto; }
+        
+        /* Nettoyage des éléments modaux inutilisés */
+        .overlay { display: none; }
+        .project-card.expanded { display: none; }
 
 
         /* --- FOOTER --- */
         footer { text-align: center; padding: 40px; background: #050505; color: #555; font-size: 14px; margin-top: 50px; }
 
-        /* --- MOBILE --- */
+        /* --- MOBILE MEDIA QUERY (Règles spécifiques pour petit écran) --- */
         @media (max-width: 768px) {
+            
+            /* 1. Menu Hamburger */
+            nav { 
+                padding: 15px 20px; 
+                justify-content: space-between; 
+                flex-wrap: nowrap; 
+            }
+            .nav-links {
+                position: fixed;
+                right: 0;
+                top: 60px; /* Hauteur de la nav */
+                background: rgba(10, 10, 10, 0.95);
+                width: 50%;
+                height: 90vh;
+                flex-direction: column;
+                align-items: center;
+                /* Position hors écran par défaut */
+                transform: translateX(100%); 
+                transition: transform 0.5s ease-in;
+                z-index: 999; 
+                border-left: 1px solid rgba(255, 255, 255, 0.1);
+                padding: 40px 0;
+                justify-content: flex-start;
+            }
+
+            .nav-active {
+                transform: translateX(0%);
+            }
+
+            .nav-links li {
+                opacity: 0; 
+                margin: 15px 0;
+            }
+
+            .burger {
+                display: block; 
+            }
+
+            /* 2. Liens Sociaux (Nouvelle disposition) */
+            .social-links { 
+                /* Utilisation de Grid pour forcer une disposition sur deux lignes centrées */
+                display: grid;
+                grid-template-columns: repeat(3, 1fr); 
+                max-width: 300px; 
+                margin: 40px auto; 
+                gap: 15px;
+            }
+            .social-link {
+                width: 50px; 
+                height: 50px;
+            }
+            
+            /* 3. Hero Text Adjustment */
             .hero h1 { font-size: 36px; }
+            
+            /* Raccourcissement du texte dans la hero section */
+            .typing-text-desktop { 
+                display: none !important; 
+            }
+            .typing-text-mobile { 
+                font-size: 18px; /* Ajuster la taille pour le mobile */
+                color: #888;
+                margin-bottom: 40px;
+                display: inline-block !important; 
+                animation: none; 
+                border-right: none;
+                width: auto;
+            }
+            
+            /* Autres ajustements mobiles */
             .hero p { font-size: 16px; }
             .timeline-container { grid-template-columns: 1fr; }
-            nav { padding: 15px 20px; flex-wrap: wrap; justify-content: center; }
-            nav ul { gap: 15px; font-size: 12px; margin-top: 10px; }
             section { padding: 60px 20px; }
-            .social-link { width: 50px; height: 50px; }
-            .social-img { width: 25px; height: 25px; }
-
-            .project-card.expanded {
-                max-width: 95%; 
-                max-height: 90vh; 
-            }
         }
     </style>
 </head>
@@ -419,19 +469,25 @@
 
 <nav>
     <div class="logo">PORTFOLIO</div>
-    <ul>
+    <ul class="nav-links">
         <li><a href="#accueil">Accueil</a></li>
         <li><a href="#parcours">Parcours</a></li>
         <li><a href="#rt-skills">Ingénieur RT</a></li>
         <li><a href="#transversales">Transversales</a></li>
         <li><a href="#projets">Projets</a></li>
     </ul>
+    <div class="burger">
+        <div class="line1"></div>
+        <div class="line2"></div>
+        <div class="line3"></div>
+    </div>
 </nav>
 
 <section class="hero" id="accueil">
     <div class="hero-content">
         <h1>THEVENIN Esteban</h1>
-        <p class="typing-text">Étudiant ingénieur en réseaux et télécommunication</p>
+        <p class="typing-text-desktop">Étudiant ingénieur en réseaux et télécommunication</p>
+        <p class="typing-text-mobile" style="display: none;">Réseau et Télécommunication</p>
         
         <div class="social-links">
             <a href="mailto:estebanthevenin@gmail.com" class="social-link"><img src="img/logo/mail.png" alt="mail" class="social-img"></a>
@@ -636,61 +692,53 @@
 </section>
 
 <section id="projets">
-    <h2>Mes Projets alors</h2>
+    <h2>Mes Projets</h2>
     <div class="projects-grid">
         
-        <div class="project-card">
-            <button class="close-btn">×</button>
+        <div class="project-static-card">
             <div class="project-image"><img src="img/pocket-iperium-500x500.jpg.webp" alt="Jeu Vidéo"></div>
-            <div class="project-content">
-                <h3>Projet Jeux Vidéo</h3>
-                <p class="project-short-desc">Adaptation numérique de Pocket Imperium en JS.</p>
-                <div class="project-full-desc">
-                    <p>Développement d'une adaptation web du jeu de stratégie spatiale. Gestion POO, logique tour par tour, interface interactive.</p>
-                    <h4>Compétences :</h4>
-                    <ul>
-                        <li>JavaScript (ES6), HTML5, CSS3</li>
-                        <li>Modélisation UML (Lucidchart)</li>
-                        <li>Algorithmique de jeu</li>
-                    </ul>
-                </div>
-            </div>
+            <h3>Projet Jeux Vidéo</h3>
+            <p class="project-desc-intro">Adaptation numérique du jeu de stratégie spatiale Pocket Imperium en JavaScript.</p>
+            
+            <p>Développement d'une adaptation web du jeu. Gestion POO, logique tour par tour, et création d'une interface interactive.</p>
+            <br>
+            <h4>Compétences :</h4>
+            <ul>
+                <li>JavaScript (ES6), HTML5, CSS3</li>
+                <li>Modélisation UML (Lucidchart)</li>
+                <li>Algorithmique de jeu (gestion des tours et des actions)</li>
+            </ul>
         </div>
 
-        <div class="project-card">
-            <button class="close-btn">×</button>
-            <div class="project-image"><img src="img/root-me-678x381.jpg" alt="Secu"></div>
-            <div class="project-content">
-                <h3>Sécurité & Réseaux</h3>
-                <p class="project-short-desc">Formation pratique via Root-Me.</p>
-                <div class="project-full-desc">
-                    <p>Résolution de challenges CTF (Capture The Flag) pour l'apprentissage de la cybersécurité.</p>
-                    <h4>Domaines abordés :</h4>
-                    <ul>
-                        <li>Réseau (Wireshark, TCP/IP)</li>
-                        <li>Web Client/Serveur (SQLi, XSS)</li>
-                        <li>Cryptographie</li>
-                    </ul>
-                </div>
-            </div>
+        <div class="project-static-card">
+            <div class="project-image"><img src="img/root-me-678x381.jpg" alt="Sécurité"></div>
+            <h3>Sécurité & Réseaux</h3>
+            <p class="project-desc-intro">Formation pratique et mise en application des concepts de cybersécurité via la plateforme Root-Me.</p>
+            
+            <p>Résolution de challenges CTF (Capture The Flag) pour l'apprentissage pratique de la cybersécurité.</p>
+            <br>
+            <h4>Domaines abordés :</h4>
+            
+            <ul>
+                <li>Réseau (Analyse de paquets avec Wireshark, TCP/IP)</li>
+                <li>Web Client/Serveur (Injection SQL - SQLi, Cross-Site Scripting - XSS)</li>
+                <li>Cryptographie et Stéganographie</li>
+            </ul>
         </div>
 
-        <div class="project-card">
-            <button class="close-btn">×</button>
-            <div class="project-image"><img src="img/Illustration_Compression.png" alt="DJ"></div>
-            <div class="project-content">
-                <h3>Projet Musical (DJ)</h3>
-                <p class="project-short-desc">Production et performance musicale.</p>
-                <div class="project-full-desc">
-                    <p>Projet auto-entrepreneurial alliant créativité et technique sonore.</p>
-                    <h4>Outils :</h4>
-                    <ul>
-                        <li>Ableton Live, Rekordbox</li>
-                        <li>Sound Design (Serum, VSTs)</li>
-                        <li>Gestion d'identité numérique</li>
-                    </ul>
-                </div>
-            </div>
+        <div class="project-static-card">
+            <div class="project-image"><img src="img/Illustration_Compression.png" alt="Musique"></div>
+            <h3>Projet Musical (DJ)</h3>
+            <p class="project-desc-intro">Projet auto-entrepreneurial alliant production et performance musicale événementielle.</p>
+            
+            <p>Ce projet développe ma créativité, ma rigueur technique et mes compétences en gestion de projet artistique.</p>
+            <br>
+            <h4>Outils et Compétences :</h4>
+            <ul>
+                <li>Production : Ableton Live, Sound Design (Serum, VSTs)</li>
+                <li>Performance : Utilisation professionnelle de Rekordbox et matériel DJ</li>
+                <li>Gestion d'identité numérique et communication événementielle</li>
+            </ul>
         </div>
 
     </div>
@@ -700,13 +748,6 @@
     <p>&copy; 2025 THEVENIN Esteban. Tous droits réservés.</p>
 </footer>
 
----
-
-## 💻 Script JavaScript Réinitialisé
-
-J'ai simplifié et vérifié la logique de verrouillage du défilement dans le script :
-
-```javascript
 <script>
     // Particules simplifiées
     const pContainer = document.getElementById('particles');
@@ -721,46 +762,54 @@ J'ai simplifié et vérifié la logique de verrouillage du défilement dans le s
         pContainer.appendChild(p);
     }
 
-    // Gestion Projets (Expand/Close)
-    const cards = document.querySelectorAll('.project-card');
-    const overlay = document.getElementById('overlay');
+    // Fonctionnalité du Menu Hamburger
+    const navSlide = () => {
+        const burger = document.querySelector('.burger');
+        // On cible la liste UL à laquelle j'ai ajouté la classe nav-links dans le HTML
+        const nav = document.querySelector('.nav-links'); 
+        const navLinks = document.querySelectorAll('.nav-links li');
 
-    // Fonction d'ouverture de la modale
-    function openModal(card) {
-        cards.forEach(c => c.classList.remove('expanded'));
-        card.classList.add('expanded');
-        overlay.classList.add('active');
-        document.body.style.overflow = 'hidden'; // 1. BLOCAGE DU SCROLL DE LA PAGE PRINCIPALE
-    }
+        burger.addEventListener('click', () => {
+            // Toggle Nav
+            nav.classList.toggle('nav-active');
+            
+            // Animate Links
+            navLinks.forEach((link, index) => {
+                // Si l'animation est déjà active (menu ouvert), on la réinitialise à la fermeture
+                if (nav.classList.contains('nav-active')) {
+                    // On utilise les keyframes définies dans le CSS pour l'effet de fade-in
+                    link.style.animation = `navLinkFade 0.5s ease forwards ${index / 7 + 0.3}s`;
+                } else {
+                    link.style.animation = ''; // Réinitialisation de l'animation lors de la fermeture
+                }
+            });
 
-    // Fonction de fermeture de la modale
-    function closeModal() {
-        cards.forEach(c => c.classList.remove('expanded'));
-        overlay.classList.remove('active');
-        document.body.style.overflow = 'auto'; // 3. RESTAURATION DU SCROLL
-    }
-
-
-    cards.forEach(card => {
-        // Clic sur la carte pour l'ouvrir
-        card.addEventListener('click', (e) => {
-            // Si l'utilisateur clique sur le bouton de fermeture, on ne fait rien (car géré ci-dessous)
-            if(e.target.classList.contains('close-btn') || e.target.parentElement.classList.contains('close-btn')) return;
-            openModal(card);
+            // Burger Animation
+            burger.classList.toggle('toggle');
         });
         
-        // Clic sur le bouton de fermeture
-        const closeBtn = card.querySelector('.close-btn');
-        if (closeBtn) {
-            closeBtn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                closeModal();
+        // Fermeture du menu si un lien est cliqué
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                nav.classList.remove('nav-active');
+                burger.classList.remove('toggle');
+                navLinks.forEach(l => l.style.animation = '');
             });
-        }
-    });
+        });
+    }
 
-    // Clic sur l'overlay pour fermer
-    overlay.addEventListener('click', closeModal);
+    navSlide();
+
+
+    // Gestion du texte dynamique (version courte ou longue)
+    if (window.innerWidth <= 768) {
+        // Sur mobile, on affiche la version courte (qui n'a pas l'animation de frappe)
+        const desktopText = document.querySelector('.typing-text-desktop');
+        const mobileText = document.querySelector('.typing-text-mobile');
+        if (desktopText) desktopText.style.display = 'none';
+        if (mobileText) mobileText.style.display = 'inline-block';
+    }
+
 
     // Bouton CTA pour défilement
     document.querySelector('.cta-button').addEventListener('click', () => {
