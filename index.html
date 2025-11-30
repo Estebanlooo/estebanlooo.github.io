@@ -398,7 +398,7 @@
                 right: 0;
                 top: 60px; /* Hauteur de la nav */
                 background: rgba(10, 10, 10, 0.95);
-                width: 50%;
+                width: 60%; 
                 height: 90vh;
                 flex-direction: column;
                 align-items: center;
@@ -424,21 +424,38 @@
                 display: block; 
             }
 
-            /* 2. Liens Sociaux (Nouvelle disposition) */
+            /* 2. Liens Sociaux (Nouvelle disposition 4 en haut, 2 en bas) */
             .social-links { 
-                /* Utilisation de Grid pour forcer une disposition sur deux lignes centrées */
                 display: grid;
-                grid-template-columns: repeat(3, 1fr); 
-                max-width: 300px; 
-                margin: 40px auto; 
+                grid-template-columns: repeat(4, 1fr); /* 4 colonnes */
                 gap: 15px;
+                max-width: 320px; /* Ajuster la largeur max pour 4 éléments */
+                margin: 40px auto; 
             }
             .social-link {
                 width: 50px; 
                 height: 50px;
             }
+            /* Gérer la 5ème et 6ème icône pour qu'elles se placent sur la deuxième ligne au centre */
+            .social-links a:nth-child(5) {
+                grid-column: span 2; /* Prend 2 colonnes pour centrer */
+                justify-self: end; /* Aligner à droite pour le 5ème */
+            }
+            .social-links a:nth-child(6) {
+                grid-column: span 2; /* Prend 2 colonnes pour centrer */
+                justify-self: start; /* Aligner à gauche pour le 6ème */
+            }
+
+            /* 3. Centrage du contenu Hero */
+            .hero-content {
+                display: flex; /* Utiliser flexbox pour le centrage */
+                flex-direction: column; /* Organiser les éléments verticalement */
+                align-items: center; /* Centrer horizontalement */
+                text-align: center; /* Assurer que le texte reste centré */
+                padding: 0 20px; /* Ajouter un peu de padding pour éviter les bords */
+            }
             
-            /* 3. Hero Text Adjustment */
+            /* 4. Hero Text Adjustment */
             .hero h1 { font-size: 36px; }
             
             /* Raccourcissement du texte dans la hero section */
@@ -487,7 +504,7 @@
     <div class="hero-content">
         <h1>THEVENIN Esteban</h1>
         <p class="typing-text-desktop">Étudiant ingénieur en réseaux et télécommunication</p>
-        <p class="typing-text-mobile" style="display: none;">Réseau et Télécommunication</p>
+        <p class="typing-text-mobile">Réseau et Télécommunication</p> 
         
         <div class="social-links">
             <a href="mailto:estebanthevenin@gmail.com" class="social-link"><img src="img/logo/mail.png" alt="mail" class="social-img"></a>
@@ -806,6 +823,8 @@
         // Sur mobile, on affiche la version courte (qui n'a pas l'animation de frappe)
         const desktopText = document.querySelector('.typing-text-desktop');
         const mobileText = document.querySelector('.typing-text-mobile');
+        // Les styles CSS gèrent déjà l'affichage, mais cette partie du JS assure 
+        // la compatibilité et permet de désactiver l'animation de frappe sur mobile.
         if (desktopText) desktopText.style.display = 'none';
         if (mobileText) mobileText.style.display = 'inline-block';
     }
